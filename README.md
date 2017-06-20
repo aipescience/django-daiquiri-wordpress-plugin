@@ -1,0 +1,1 @@
+# django-daiquiri-wordpress-plugin
