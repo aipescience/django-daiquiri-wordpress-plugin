@@ -40,7 +40,7 @@ add_action('init', 'daiquiri_auto_login');
 
 function daiquiri_auto_login()
 {
-    if (!is_user_logged_in() && php_sapi_name() != 'cli') {
+    if (isset($_COOKIE['sessionid']) && !is_user_logged_in()) {
         // check if WordPress is below Daiquiri
         if (strpos(get_option('siteurl'), DAIQUIRI_URL) === false) {
             echo '<h1>Error with daiquiri plugin</h1><p>Wordpress URL is not below Daiquiri URL. Please set the correct DAIQUIRI_URL in wp-config.php.</p>';
@@ -52,13 +52,13 @@ function daiquiri_auto_login()
 
         require_once('HTTP/Request2.php');
         $req = new HTTP_Request2($url);
+        $req->setMethod('GET');
+        $req->addCookie("sessionid", $_COOKIE["sessionid"]);
         $req->setConfig(array(
             'ssl_verify_peer' => false, // we trust the certificate here
             'connect_timeout' => 2,
             'timeout' => 3
         ));
-        $req->setMethod('GET');
-        $req->addCookie("sessionid", $_COOKIE["sessionid"]);
 
         try {
             $response = $req->send();
