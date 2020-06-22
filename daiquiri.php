@@ -42,10 +42,10 @@ function daiquiri_auto_login()
 {
     if (isset($_COOKIE['sessionid']) && !is_user_logged_in()) {
         // check if WordPress is below Daiquiri
-        if (strpos(get_option('siteurl'), DAIQUIRI_URL) === false) {
-            echo '<h1>Error with daiquiri plugin</h1><p>Wordpress URL is not below Daiquiri URL. Please set the correct DAIQUIRI_URL in wp-config.php.</p>';
-            die(0);
-        }
+//        if (strpos(get_option('siteurl'), DAIQUIRI_URL) === false) {
+ //           echo '<h1>Error with daiquiri plugin</h1><p>Wordpress URL is not below Daiquiri URL. Please set the correct DAIQUIRI_URL in wp-config.php.</p>';
+//            die(0);
+//        }
 
         // check which user is logged in into daiquiri right now
         $url = rtrim(DAIQUIRI_URL, '/') . '/accounts/profile.json/';
